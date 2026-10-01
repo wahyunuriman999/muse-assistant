@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setiap skill wajib punya SKILL.md
+        run: |
+          fail=0
+          for d in skills/*/; do
+            if [ ! -f "$d/SKILL.md" ]; then
+              echo "❌ $d tidak punya SKILL.md"
+              fail=1
+            fi
+          done
+          [ $fail -eq 0 ] && echo "✅ semua skill punya SKILL.md"
+
+      - name: Cek markdown rusak (opsional, butuh node)
+        run: |
+          if command -v npx >/dev/null 2>&1; then
+            npx --yes markdownlint-cli "**/*.md" --ignore node_modules || true
+          else
+            echo "skip: npx tidak tersedia"
+          fi

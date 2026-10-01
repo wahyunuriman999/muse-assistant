@@ -1,0 +1,19 @@
+# Build & tool artifacts
+node_modules/
+dist/
+build/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets — never commit these
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
