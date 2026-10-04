@@ -24,12 +24,20 @@ Kebanyakan "AI assistant" hari ini hanyalah chatbot dengan system prompt. Muse A
 muse-assistant/
 ├── README.md                  ← kamu di sini
 ├── LICENSE
+├── runtime/                   ← ⭐ IMPLEMENTASI JALAN: agen Python + browser live
+│   ├── agent.py               ← loop: pikir → tool → tuntas
+│   ├── tools.py               ← web_search/fetch/browse, file, shell, memory, skills
+│   ├── llm.py                 ← OpenAI-compatible (OpenAI/Ollama/vLLM/dll.)
+│   ├── chat.py                ← CLI: python -m runtime.chat
+│   └── ...
+├── requirements.txt
 ├── docs/
 │   ├── 01-persona.md          ← kepribadian & nilai inti
 │   ├── 02-capabilities.md     ← semua kemampuan, dijelaskan satu per satu
 │   ├── 03-integrations.md     ← katalog integrasi & cara menyambungkannya
 │   ├── 04-architecture.md     ← cara kerja lapisan-lapisannya
-│   └── 05-safety.md           ← keamanan, privasi, dan batasan
+│   ├── 05-safety.md           ← keamanan, privasi, dan batasan
+│   └── 06-runtime.md          ← cara menjalankan runtime-nya
 ├── skills/
 │   ├── _template/SKILL.md     ← template untuk bikin skill baru
 │   ├── gmail/SKILL.md
@@ -41,11 +49,28 @@ muse-assistant/
 ├── examples/
 │   ├── morning-briefing.md    ← contoh: briefing pagi otomatis
 │   └── deep-research.md       ← contoh: riset mendalam multi-sumber
-└── .github/
-    └── workflows/ci.yml       ← cek markdown + struktur skill
+└── tests/
+    └── test_tools.py          ← 15 test tools non-network
 ```
 
-## 🚀 Mulai cepat
+## ⚡ Runtime: bikin LLM lain kerja kayak Muse
+
+Repo ini sekarang punya **runtime Python yang benar-benar jalan** — bukan cuma dokumen.
+LLM apa pun yang support OpenAI-compatible API (OpenAI, OpenRouter, Ollama lokal, vLLM)
+bisa memakai: **browser Chromium live**, web search/fetch, file workspace, shell (opsional),
+memori jangka panjang, dan semua skill di `skills/`.
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+playwright install chromium
+export LLM_API_KEY="sk-..."   # atau Ollama lokal, lihat docs/06-runtime.md
+python -m runtime.chat
+```
+
+Detail lengkap: [docs/06-runtime.md](docs/06-runtime.md).
+
+## 🚀 Mulai cepat (baca dulu)
 
 **1. Baca personanya dulu** — ini fondasinya:
 

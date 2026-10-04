@@ -1,8 +1,9 @@
-# Build & tool artifacts
-node_modules/
-dist/
-build/
-*.log
+# Python
+.venv/
+__pycache__/
+*.pyc
+workspace/
+!.gitkeep
 
 # OS / editor
 .DS_Store
